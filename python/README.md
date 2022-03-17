@@ -18,6 +18,7 @@ pip install git+https://github.com/raboof/nethogs.git
 ```
 
 ### To use
+The `nethogsmonitor_loop`:
 ``` python
 import nethogs
 import threading
@@ -25,8 +26,30 @@ import threading
 def callback(action: int, record: nethogs.NethogsMonitorRecord) -> None:
     do_whatever_with_record(record)
     return
-    
-th = threading.Thread(target=nethogs.nethogsmonitor_loop, args(callback, filter, to_ms))
+
+th = threading.Thread(
+  target=nethogs.nethogsmonitor_loop,
+  args(callback, filter, to_ms)
+)
+th.start()
+do_whatever_you_need_to_do()
+nethogs.nethogsmonitor_breakloop()
+th.join()
+```
+
+The `nethogsmonitor_loop_devices`:
+``` python
+import nethogs
+import threading
+
+def callback(action: int, record: nethogs.NethogsMonitorRecord) -> None:
+    do_whatever_with_record(record)
+    return
+
+th = threading.Thread(
+  target=nethogs.nethogsmonitor_loop_devices,
+  args(callback, filter, ["one-interface", "other-interface"], True, to_ms)
+)
 th.start()
 do_whatever_you_need_to_do()
 nethogs.nethogsmonitor_breakloop()
