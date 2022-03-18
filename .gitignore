@@ -10,3 +10,4 @@ libnethogs.a
 results/
 build/
 nethogs.egg-info
+*.snap
