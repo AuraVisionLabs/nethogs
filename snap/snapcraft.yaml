@@ -1,0 +1,35 @@
+name: aura-nethogs
+version: "0.8.6"
+summary: AuraVision nethogs
+description: AuraVision nethogs
+
+type: app
+base: core18
+grade: stable
+confinement: strict
+
+apps:
+  python3:
+    environment:
+      PYTHONPATH: ${SNAP}/lib/python3.6:${SNAP}/usr/lib/python3
+    command: bin/python3
+    plugs:
+      - network
+      - network-bind
+      - network-manager
+      - network-observe
+      - network-control
+      - system-observe
+
+parts:
+  nethogs:
+    plugin: python
+    source: .
+    build-packages:
+      - libncurses5-dev
+      - libpcap-dev
+      - pybind11-dev
+    stage-packages:
+      - libpcap0.8
+      - libncurses5
+
